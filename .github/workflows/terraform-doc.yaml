@@ -13,7 +13,7 @@ jobs:
       - name: Render terraform docs
         uses: terraform-docs/gh-actions@v0.11.0
         with:
-          working-dir: .
+          working-dir: .,env/prod,env/dev,modules/argocd-password,modules/eks-argocd-cluster,modules/network
           output-file: README.md
           output-method: inject
           git-push: "true"
