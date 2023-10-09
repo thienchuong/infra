@@ -1,3 +1,11 @@
+locals {
+  cluster_name = "eks-production"
+  tags = {
+    Terraform   = "true"
+    Environment = "production"
+  }
+}
+
 module "eks" {
   source = "../../modules/eks-argocd-cluster"
 
@@ -33,7 +41,7 @@ module "eks" {
     }
   }
 
-  # node groups
+  # eks_managed_node_groups
   eks_managed_node_groups = {
     group_1 = {
       bootstrap_extra_args = "--container-runtime containerd --kubelet-extra-args '--max-pods=20'"
@@ -52,10 +60,11 @@ module "eks" {
       taints = {}
     }
   }
-  eks_tags = {
-    Environment = "production"
-    Terraform   = "true"
-  }
+  tags = local.tags
+
+  # setups irsa for platform services
+  load-balancer-controller-enabled = true
+  karpenter-enabled                = true
 
   # install argocd #
   enable_argocd         = true
@@ -91,21 +100,6 @@ module "eks" {
   }
 
 }
-/* # template for creating argocd project/applicationsets/applications
-resource "helm_release" "argocd_application" {
-  count = var.enable_argocd ? 1 : 0
-
-  name       = "argocd-apps"
-  repository = "https://argoproj.github.io/argo-helm"
-  chart      = "argocd-apps"
-  version    = "1.4.1"
-  namespace  = "argocd"
-
-  values = [templatefile("${path.module}/helm-chart/argocd_applicationset.tftpl", {
-    argocd_applications = var.argocd_applicationset_helm_values
-  })]
-}
-*/
 
 module "argocd-adminpassword" {
   source = "../../modules/argocd-password"

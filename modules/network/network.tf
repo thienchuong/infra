@@ -18,7 +18,7 @@ module "vpc" {
   enable_dns_support   = var.enable_dns_support
 
 
-  public_subnet_tags = var.public_subnet_tags
+  public_subnet_tags  = var.public_subnet_tags
   private_subnet_tags = var.private_subnet_tags
 
   tags = var.vpc_tags

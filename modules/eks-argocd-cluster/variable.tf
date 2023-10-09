@@ -58,13 +58,13 @@ variable "vpc_tags" {
 }
 
 variable "public_subnet_tags" {
-  type = any
-  default = {}
+  type        = any
+  default     = {}
   description = "Public subnet tags"
 }
 variable "private_subnet_tags" {
-  type = any
-  default = {}
+  type        = any
+  default     = {}
   description = "Private subnet tags"
 }
 variable "vpc_id" {
@@ -104,42 +104,51 @@ variable "enable_irsa" {
   description = "Determines whether to create an OpenID Connect Provider for EKS to enable IRSA"
   default     = "true"
 }
-variable "eks_tags" {
-  type = map(string)
+variable "tags" {
+  type    = map(string)
   default = {}
 }
 variable "create_cloudwatch_log_group" {
-  type        = bool
-  default     = "false"
+  type    = bool
+  default = "false"
 }
 variable "cluster_addons" {
-  type = any
+  type    = any
   default = {}
 }
 
 variable "eks_managed_node_groups" {
-  type = any
+  type    = any
   default = {}
+}
+
+variable "load-balancer-controller-enabled" {
+  type = bool
+  description = "Should be true if you want to deploy load-balancer-controller role"
+}
+variable "karpenter-enabled" {
+  type = bool
+  description = "Should be true if you want to deploy karpenter role"
 }
 
 ##### ArgoCD #######
 variable "enable_argocd" {
-  type = bool
-  default = false
+  type        = bool
+  default     = false
   description = "Should be true if you want to deploy ArgoCD"
 }
 variable "argocd_manage_add_ons" {
-  type = bool
-  default = false
+  type        = bool
+  default     = false
   description = "Indicates that ArgoCD is responsible for managing/deploying add-ons"
 }
 variable "argocd_helm_config" {
-  type = any
-  default = {}
+  type        = any
+  default     = {}
   description = "ArgoCD Helm configuration"
 }
 variable "argocd_applications" {
-  type = any
-  default = {}
+  type        = any
+  default     = {}
   description = "ArgoCD Applications like workload and platform"
-} 
+}

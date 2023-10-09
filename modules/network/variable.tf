@@ -37,9 +37,9 @@ variable "one_nat_gateway_per_az" {
   default     = "false"
 }
 variable "single_nat_gateway" {
-  type = bool
+  type        = bool
   description = "Should be true if you want to provision a single shared NAT Gateway across all of your private networks"
-  default = "false"
+  default     = "false"
 }
 variable "enable_dns_hostnames" {
   type        = bool
@@ -63,13 +63,13 @@ variable "cidr" {
   description = "value of the cidr block"
 }
 variable "public_subnet_tags" {
-  type = any
-  default = {}
+  type        = any
+  default     = {}
   description = "Public subnet tags"
 }
 variable "private_subnet_tags" {
-  type = any
-  default = {}
+  type        = any
+  default     = {}
   description = "Private subnet tags"
 }
 

@@ -18,7 +18,7 @@ module "eks" {
 
   # node groups
   eks_managed_node_groups = var.eks_managed_node_groups
-  tags = var.eks_tags
+  tags                    = var.tags
 
 }
 
@@ -33,11 +33,11 @@ module "eks_argocd_addons" {
 
   enable_argocd         = var.enable_argocd
   argocd_manage_add_ons = var.argocd_manage_add_ons # Indicates that ArgoCD is responsible for managing/deploying add-ons
-  argocd_helm_config = var.argocd_helm_config
+  argocd_helm_config    = var.argocd_helm_config
 
 
   argocd_applications = var.argocd_applications
-  tags = var.eks_tags
+  tags                = var.tags
 }
 
 

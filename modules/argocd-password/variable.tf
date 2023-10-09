@@ -1,12 +1,12 @@
 variable "length" {
-  type = string
+  type    = string
   default = 10
 }
 variable "override_special" {
-  type = string
+  type    = string
   default = "!#$%&*()-_=+[]{}<>:?"
 }
 variable "secretsmanager_secret_name" {
-  type = string
+  type    = string
   default = "argocd"
 }

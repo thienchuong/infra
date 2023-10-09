@@ -42,6 +42,11 @@ output "node_security_group_arn" {
   value       = module.eks.node_security_group_arn
 }
 
+output "eks_managed_node_groups" {
+  description = "Map of attribute maps for all EKS managed node groups created"
+  value       = module.eks.eks_managed_node_groups
+}
+
 
 output "aws_auth_configmap_yaml" {
   description = "Formatted yaml output for base aws-auth configmap containing roles used in cluster node groups/fargate profiles"
