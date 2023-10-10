@@ -170,3 +170,33 @@ variable "argocd_applications" {
   default     = {}
   description = "ArgoCD Applications like workload and platform"
 }
+
+variable "karpenter_subnet_account_id" {
+  description = "Account ID of where the subnets Karpenter will utilize resides. Used when subnets are shared from another account"
+  type        = string
+  default     = ""
+}
+
+variable "karpenter_controller_ssm_parameter_arns" {
+  description = "List of SSM Parameter ARNs that contain AMI IDs launched by Karpenter"
+  type        = list(string)
+  default = ["arn:aws:ssm:*:*:parameter/aws/service/*"]
+}
+
+variable "karpenter_controller_node_iam_role_arns" {
+  description = "List of node IAM role ARNs Karpenter can use to launch nodes"
+  type        = list(string)
+  default     = ["*"]
+}
+
+variable "karpenter_sqs_queue_arn" {
+  description = "(Optional) ARN of SQS used by Karpenter when native node termination handling is enabled"
+  type        = string
+  default     = null
+}
+
+variable "policy_name_prefix" {
+  description = "IAM policy name prefix"
+  type        = string
+  default     = "AmazonEKS_"
+}
