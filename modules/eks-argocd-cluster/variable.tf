@@ -138,6 +138,16 @@ variable "node_security_group_additional_rules" {
   type = any
   default = {}
 }
+variable "manage_aws_auth_configmap" {
+  type = bool
+  
+}
+variable "aws_auth_roles" {
+  type = any
+}
+variable "node_security_group_tags" {
+  type = any
+}
 
 ##### ArgoCD #######
 variable "enable_argocd" {

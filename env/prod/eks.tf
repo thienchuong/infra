@@ -60,7 +60,10 @@ module "eks" {
       taints = {}
     }
   }
-# Allows Control Plane Nodes to talk to Worker nodes on port 8443 karpenter 8443
+  node_security_group_tags = {
+    "karpenter.sh/discovery" = local.cluster_name
+  }
+  # Allows Control Plane Nodes to talk to Worker nodes on port 8443 karpenter 8443
   cluster_security_group_additional_rules = {
     ingress_nodes_karpenter_ports_tcp = {
       description                = "Karpenter readiness"
@@ -76,6 +79,19 @@ module "eks" {
   # setups irsa for platform services
   load-balancer-controller-enabled = true
   karpenter-enabled                = true
+  manage_aws_auth_configmap        = true
+  aws_auth_roles = [
+    # We need to add in the Karpenter node IAM role for nodes launched by Karpenter
+    {
+      rolearn  = module.karpenter.role_arn
+      username = "system:node:{{EC2PrivateDNSName}}"
+      groups = [
+        "system:bootstrappers",
+        "system:nodes",
+      ]
+    }
+  ]
+
 
   # install argocd #
   enable_argocd         = true
@@ -118,4 +134,21 @@ module "argocd-adminpassword" {
   length                     = 10
   override_special           = "!#$%&*()-_=+[]{}<>:?"
   secretsmanager_secret_name = "argocd"
+}
+
+module "karpenter" {
+  source = "terraform-aws-modules/eks/aws//modules/karpenter"
+
+  cluster_name = module.eks.cluster_name
+
+  irsa_oidc_provider_arn          = module.eks.oidc_provider_arn
+  irsa_namespace_service_accounts = ["karpenter:karpenter"]
+
+  create_iam_role = false
+  iam_role_arn    = module.eks.eks_managed_node_groups["group_1"].iam_role_arn
+
+  tags = {
+    Environment = "production"
+    Terraform   = "true"
+  }
 }
