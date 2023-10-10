@@ -18,13 +18,11 @@ module "vpc" {
 
   public_subnet_tags = {
     Name                                          = "public-subnets"
-    "kubernetes.io/role/elb"                      = 1
     "kubernetes.io/cluster/${local.cluster_name}" = "shared"
   }
   private_subnet_tags = {
-    Name                                          = "private-subnets"
-    "kubernetes.io/role/internal-elb"             = 1
-    "kubernetes.io/cluster/${local.cluster_name}" = "shared"
+    Name                     = "private-subnets"
+    "karpenter.sh/discovery" = local.cluster_name
   }
   vpc_tags = {
     Terraform   = "true"

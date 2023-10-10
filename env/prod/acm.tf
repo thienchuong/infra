@@ -2,8 +2,8 @@ module "acm" {
   source  = "terraform-aws-modules/acm/aws"
   version = "~> 4.0"
 
-  domain_name  = "thienchuong.xyz"
-  zone_id      = "Z0309504BS4N0050VHBU"
+  domain_name = "thienchuong.xyz"
+  zone_id     = "Z0309504BS4N0050VHBU"
 
   validation_method = "DNS"
 
@@ -14,7 +14,7 @@ module "acm" {
   wait_for_validation = true
 
   tags = {
-    Name = "thienchuong.xyz"
-    Terraform   = "true"
+    Name      = "thienchuong.xyz"
+    Terraform = "true"
   }
 }
