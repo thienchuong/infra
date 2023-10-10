@@ -71,7 +71,6 @@ module "eks" {
       source_node_security_group = true
     }
   }
-}
   tags = local.tags
 
   # setups irsa for platform services
