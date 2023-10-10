@@ -123,12 +123,20 @@ variable "eks_managed_node_groups" {
 }
 
 variable "load-balancer-controller-enabled" {
-  type = bool
+  type        = bool
   description = "Should be true if you want to deploy load-balancer-controller role"
 }
 variable "karpenter-enabled" {
-  type = bool
+  type        = bool
   description = "Should be true if you want to deploy karpenter role"
+}
+variable "cluster_security_group_additional_rules" {
+  type = any
+  default = {}
+}
+variable "node_security_group_additional_rules" {
+  type = any
+  default = {}
 }
 
 ##### ArgoCD #######

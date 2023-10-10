@@ -17,8 +17,10 @@ module "eks" {
   cluster_addons = var.cluster_addons
 
   # node groups
-  eks_managed_node_groups = var.eks_managed_node_groups
-  tags                    = var.tags
+  eks_managed_node_groups                 = var.eks_managed_node_groups
+  cluster_security_group_additional_rules = var.cluster_security_group_additional_rules
+  node_security_group_additional_rules    = var.node_security_group_additional_rules
+  tags                                    = var.tags
 
 }
 

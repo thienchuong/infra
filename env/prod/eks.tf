@@ -60,6 +60,18 @@ module "eks" {
       taints = {}
     }
   }
+# Allows Control Plane Nodes to talk to Worker nodes on port 8443 karpenter 8443
+  cluster_security_group_additional_rules = {
+    ingress_nodes_karpenter_ports_tcp = {
+      description                = "Karpenter readiness"
+      protocol                   = "tcp"
+      from_port                  = 8443
+      to_port                    = 8443
+      type                       = "ingress"
+      source_node_security_group = true
+    }
+  }
+}
   tags = local.tags
 
   # setups irsa for platform services
