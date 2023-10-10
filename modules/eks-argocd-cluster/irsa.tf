@@ -41,7 +41,7 @@ module "karpenter_irsa_role" {
   attach_karpenter_controller_policy = false
 
   role_policy_arns = {
-    policy = aws_iam_policy.karpenter.arn
+    policy = aws_iam_policy.karpenter[0].arn
   }
 
   karpenter_controller_cluster_name       = module.eks.cluster_name
