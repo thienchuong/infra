@@ -171,7 +171,7 @@ module "external_secrets_irsa_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
   version = "~> 5.30"
 
-  role_name                      = "external_secrets"
+  role_name                      = "external-secrets"
   attach_external_secrets_policy = true
 
   oidc_providers = {
