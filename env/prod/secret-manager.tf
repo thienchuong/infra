@@ -24,15 +24,6 @@ module "secrets_manager" {
       ]
       resources = ["*"]
     }
-    account = {
-      sid = "AccountDescribe"
-      principals = [{
-        type        = "AWS"
-        identifiers = [module.external_secrets_irsa_role.iam_role_arn]
-      }]
-      actions   = ["secretsmanager:DescribeSecret"]
-      resources = ["*"]
-    }
   }
 
   # Version
@@ -40,7 +31,7 @@ module "secrets_manager" {
   secret_string = jsonencode({
     engine   = "mariadb",
     host     = "mydb.cluster-123456789012.us-east-1.rds.amazonaws.com",
-    username = "Bill",
+    username = "ToninoLamborghini",
     password = "ThisIsMySuperSecretString12356!"
     dbname   = "mydb",
     port     = 3306
@@ -57,12 +48,6 @@ module "secrets_manager" {
   tags = local.tags
 }
 
-
-################################################################################
-# Supporting Resources
-################################################################################
-
-# https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotating-secrets-required-permissions-function.html
 data "aws_iam_policy_document" "this" {
   statement {
     actions = [
@@ -90,7 +75,7 @@ module "lambda" {
   version = "~> 6.0"
 
   function_name = "lambda-func"
-  description   = "Example Secrets Manager secret rotation lambda function"
+  description   = "lambda function rotate secrets in Secret Manager"
 
   handler     = "function.lambda_handler"
   runtime     = "python3.10"
