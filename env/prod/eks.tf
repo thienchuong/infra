@@ -79,6 +79,8 @@ module "eks" {
   # setups irsa for platform services
   load-balancer-controller-enabled = true
   karpenter-enabled                = true
+  external_secrets                 = true
+  
   manage_aws_auth_configmap        = true
   aws_auth_roles = [
     # We need to add in the Karpenter node IAM role for nodes launched by Karpenter

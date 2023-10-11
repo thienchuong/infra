@@ -8,12 +8,19 @@ locals {
   aws-load-balancer-controller-ns      = "aws-load-balancer-controller"
   k8s-karpenter-sva                    = "karpenter"
   karpenter-ns                         = "karpenter"
+  external-secrets-ns                  = "external-secrets"
+  k8s-external-secrets-sva             = "external-secrets"
   account_id          = data.aws_caller_identity.current.account_id
   partition           = data.aws_partition.current.partition
   dns_suffix          = data.aws_partition.current.dns_suffix
   region              = data.aws_region.current.name
   karpenter_controller_cluster_name = module.eks.cluster_name
 }
+
+
+################################################################################
+# Aws load balancer controller policy
+################################################################################
 
 module "load_balancer_controller_irsa_role" {
   count   = var.load-balancer-controller-enabled ? 1 : 0
@@ -30,6 +37,11 @@ module "load_balancer_controller_irsa_role" {
     }
   }
 }
+
+
+################################################################################
+# Karpenter Controller Policy
+################################################################################
 
 module "karpenter_irsa_role" {
   count = var.karpenter-enabled ? 1 : 0
@@ -58,10 +70,6 @@ module "karpenter_irsa_role" {
   }
 }
 
-
-################################################################################
-# Karpenter Controller Policy
-################################################################################
 data "aws_iam_policy_document" "karpenter" {
 
   statement {
@@ -151,4 +159,25 @@ resource "aws_iam_policy" "karpenter" {
   name_prefix = "${var.policy_name_prefix}Karpenter_Controller_Policy-"
   description = "Provides permissions for Karpenter to manage EC2 instances"
   policy      = data.aws_iam_policy_document.karpenter.json
+}
+
+
+################################################################################
+# External secret policy
+################################################################################
+
+module "external_secrets_irsa_role" {
+  count   = var.attach-external-secrets-policy-enabled ? 1 : 0
+  source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
+  version = "~> 5.30"
+
+  role_name                              = "external_secrets"
+  attach_external_secrets_policy = true
+
+  oidc_providers = {
+    main = {
+      provider_arn               = module.eks.oidc_provider_arn
+      namespace_service_accounts = ["${local.external-secrets-ns}:${local.k8s-external-secrets-sva}"]
+    }
+  }
 }

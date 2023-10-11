@@ -130,6 +130,11 @@ variable "karpenter-enabled" {
   type        = bool
   description = "Should be true if you want to deploy karpenter role"
 }
+
+variable "external_secrets" {
+  type        = bool
+  description = "Should be true if you want to deploy external-secrets role"
+}
 variable "cluster_security_group_additional_rules" {
   type = any
   default = {}

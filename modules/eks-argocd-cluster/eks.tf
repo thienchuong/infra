@@ -18,6 +18,10 @@ module "eks" {
   manage_aws_auth_configmap = var.manage_aws_auth_configmap
   aws_auth_roles = var.aws_auth_roles
 
+  # setup IRSA
+  karpenter-enabled = var.karpenter-enabled
+  load-balancer-controller-enabled = var.load-balancer-controller-enabled  
+  external_secrets = var.external_secrets
   # node groups
   eks_managed_node_groups                 = var.eks_managed_node_groups
   cluster_security_group_additional_rules = var.cluster_security_group_additional_rules
