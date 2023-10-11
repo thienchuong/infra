@@ -131,21 +131,22 @@ variable "karpenter-enabled" {
   description = "Should be true if you want to deploy karpenter role"
 }
 
-variable "external_secrets" {
+variable "external-secrets-enabled" {
   type        = bool
   description = "Should be true if you want to deploy external-secrets role"
 }
+
 variable "cluster_security_group_additional_rules" {
-  type = any
+  type    = any
   default = {}
 }
 variable "node_security_group_additional_rules" {
-  type = any
+  type    = any
   default = {}
 }
 variable "manage_aws_auth_configmap" {
   type = bool
-  
+
 }
 variable "aws_auth_roles" {
   type = any
@@ -185,7 +186,7 @@ variable "karpenter_subnet_account_id" {
 variable "karpenter_controller_ssm_parameter_arns" {
   description = "List of SSM Parameter ARNs that contain AMI IDs launched by Karpenter"
   type        = list(string)
-  default = ["arn:aws:ssm:*:*:parameter/aws/service/*"]
+  default     = ["arn:aws:ssm:*:*:parameter/aws/service/*"]
 }
 
 variable "karpenter_controller_node_iam_role_arns" {

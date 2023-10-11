@@ -14,14 +14,10 @@ module "eks" {
   enable_irsa = var.enable_irsa
 
   # cluster add-ons
-  cluster_addons = var.cluster_addons
+  cluster_addons            = var.cluster_addons
   manage_aws_auth_configmap = var.manage_aws_auth_configmap
-  aws_auth_roles = var.aws_auth_roles
+  aws_auth_roles            = var.aws_auth_roles
 
-  # setup IRSA
-  karpenter-enabled = var.karpenter-enabled
-  load-balancer-controller-enabled = var.load-balancer-controller-enabled  
-  external_secrets = var.external_secrets
   # node groups
   eks_managed_node_groups                 = var.eks_managed_node_groups
   cluster_security_group_additional_rules = var.cluster_security_group_additional_rules
@@ -48,19 +44,3 @@ module "eks_argocd_addons" {
   argocd_applications = var.argocd_applications
   tags                = var.tags
 }
-
-
-/* # template for creating argocd project/applicationsets/applications
-resource "helm_release" "argocd_application" {
-  count = var.enable_argocd ? 1 : 0
-
-  name       = "argocd-apps"
-  repository = "https://argoproj.github.io/argo-helm"
-  chart      = "argocd-apps"
-  version    = "1.4.1"
-  namespace  = "argocd"
-
-  values = [templatefile("${path.module}/helm-chart/argocd_applicationset.tftpl", {
-    argocd_applications = var.argocd_applicationset_helm_values
-  })]
-} */
