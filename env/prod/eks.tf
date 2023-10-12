@@ -80,6 +80,7 @@ module "eks" {
   load-balancer-controller-enabled = true
   karpenter-enabled                = true
   external-secrets-enabled         = true
+  aws-ebs-csi-driver-enabled       = true
 
   manage_aws_auth_configmap = true
   aws_auth_roles = [

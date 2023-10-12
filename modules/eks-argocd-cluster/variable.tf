@@ -135,6 +135,11 @@ variable "external-secrets-enabled" {
   type        = bool
   description = "Should be true if you want to deploy external-secrets role"
 }
+variable "aws-ebs-csi-driver-enabled" {
+  type        = bool
+  description = "Should be true if you want to deploy aws-ebs-csi-driver role"
+}
+
 
 variable "cluster_security_group_additional_rules" {
   type    = any

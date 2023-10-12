@@ -10,6 +10,8 @@ locals {
   karpenter-ns                         = "karpenter"
   external-secrets-ns                  = "external-secrets"
   k8s-external-secrets-sva             = "external-secrets"
+  aws-ebs-csi-driver-ns                = "aws-ebs-csi-driver"
+  k8s-aws-ebs-csi-driver-sva           = "aws-ebs-csi-driver"
   account_id                           = data.aws_caller_identity.current.account_id
   partition                            = data.aws_partition.current.partition
   dns_suffix                           = data.aws_partition.current.dns_suffix
@@ -178,6 +180,25 @@ module "external_secrets_irsa_role" {
     main = {
       provider_arn               = module.eks.oidc_provider_arn
       namespace_service_accounts = ["${local.external-secrets-ns}:${local.k8s-external-secrets-sva}"]
+    }
+  }
+}
+
+################################################################################
+# aws-ebs-csi-driver policy
+################################################################################
+module "aws-ebs-csi-driver_irsa_role" {
+  count   = var.aws-ebs-csi-driver-enabled ? 1 : 0
+  source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
+  version = "~> 5.30"
+
+  role_name                        = "aws-ebs-csi-driver"
+  attach_ebs_csi_policy            = true
+
+  oidc_providers = {
+    main = {
+      provider_arn               = module.eks.oidc_provider_arn
+      namespace_service_accounts = ["${local.aws-ebs-csi-driver-ns}:${local.k8s-aws-ebs-csi-driver-sva}"]
     }
   }
 }
