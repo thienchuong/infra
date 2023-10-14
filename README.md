@@ -82,7 +82,7 @@
 
 ### Limitation
 - Not fully setup a production ready infra. Many component need to be fine turning and secret need to be controll
-- Some Grafana dashboard is missing metric because of the resolution is a bit high and some label need to be relabel
+- Some Grafana dashboards is missing metric because of the resolution is a bit high and some label need to be relabel
 - Deploy github action build cache to reduce the build time
 - Deploy monitoring for github action build time
 - Deploy github action runner controller for auto scaling the runners
