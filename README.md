@@ -64,8 +64,10 @@
     ```
 
 - Get Argocd password from aws secret manager. Now you can see Argocd is holding Applications for addons (karpenter, Aws load balancer controller, External-secrets, Prometheus + Grafana, Aws ebs csi driver), ApplicationSet for deploy workload (podinfo)
+- The addons are installed by this [terraform code block](https://github.com/thienchuong/infra/blob/main/env/prod/eks.tf#L120)
 
 - After the application podinfo is synced, an ingress also created by aws alb controller. A TLS certfiticate is also fetched and deploy with the domain podinfo.thienchuong.xyz
+- The workloads are installed by this [terraform code block](https://github.com/thienchuong/infra/blob/main/env/prod/eks.tf#L125)
 - A helm chart for deploying application also created in [argocd-apps](https://github.com/thienchuong/argocd-apps/blob/main/.github/workflows/helm-release.yaml). We can update the chart and push to github OCI repository with versioning by leverage github action ci job
 
 #### Karpenter
