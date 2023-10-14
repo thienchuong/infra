@@ -81,7 +81,7 @@
 - Some grafana dashboards are included
 
 ### Limitation
-- Because of the lack of time, I can not fully setup a production ready infra. Many component need to be fine turning and secret need to be controll
+- Not fully setup a production ready infra. Many component need to be fine turning and secret need to be controll
 - Some Grafana dashboard is missing metric because of the resolution is a bit high and some label need to be relabel
 - Deploy github action build cache to reduce the build time
 - Deploy monitoring for github action build time
