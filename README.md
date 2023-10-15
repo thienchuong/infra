@@ -39,7 +39,7 @@
 - Download repo [infra](https://github.com/thienchuong/infra)
     ```
     git clone https://github.com/thienchuong/infra
-    cd env
+    cd infra/env
     ```
 - For demo purpose, we can set AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY as env variable
 
