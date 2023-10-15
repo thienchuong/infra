@@ -35,7 +35,7 @@
   - This repo is used for prevent copying and pasting from one workflow to another
   
 ### Infrastructure
-#### Deploy
+#### Terraform Deploy
 - Download repo [infra](https://github.com/thienchuong/infra)
     ```
     git clone https://github.com/thienchuong/infra
