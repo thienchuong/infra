@@ -51,7 +51,7 @@
     ```
     terraform apply --auto-approve
     ```
-
+- In reality we have to trigger the apply via github action workflow and Terraform cloud, which is implemented in this [workflow](https://github.com/thienchuong/infra/blob/main/.github/workflows/terraform-deploy.yaml)
 #### Argocd
 - Get kubeconfig
   ```dotnetcli
