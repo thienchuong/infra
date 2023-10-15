@@ -92,3 +92,53 @@
 ### What CAN be improve but need to POC first
 - Deploy thanos as a additional to observability stack for better performance and long time storage solution
 - Deploy Hashicorp Vault as a replacement for aws secret manager for cost optimization
+
+### Infra repository structure
+```
+.
+├── env
+│   ├── dev
+│   └── prod
+│       ├── argocd
+│       └── builds
+├── image
+└── modules
+    ├── argocd-password
+    ├── eks-argocd-cluster
+    │   └── argocd
+    └── network
+```
+### Argocd-apps repository structure
+```
+.
+├── apps
+│   ├── eks-dev
+│   │   └── application
+│   │       └── templates
+│   └── eks-production
+│       ├── application
+│       │   └── templates
+│       └── platform
+│           └── templates
+├── charts
+│   └── project-application
+│       └── templates
+│           └── redis
+└── values
+    ├── eks-dev
+    │   └── application
+    │       └── podinfo
+    └── eks-production
+        ├── application
+        │   └── podinfo
+        └── platform
+            ├── aws-ebs-csi-driver
+            ├── aws-load-balancer-controller
+            ├── external-secrets
+            │   └── templates
+            ├── karpenter
+            │   └── templates
+            └── observability
+                ├── grafana-dashboards
+                └── templates
+```
