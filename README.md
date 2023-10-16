@@ -83,7 +83,7 @@
 - Some grafana dashboards are included
 #### Config management
 - Config is setup directly in [configmap](https://github.com/thienchuong/argocd-apps/blob/main/charts/project-application/templates/configmap.yaml) helm chart. 
-- Whenever the configmap is changed, a helm checksum will change and auto reload the deployment
+- Whenever the configmap is changed, a [helm checksum](https://github.com/thienchuong/argocd-apps/blob/main/charts/project-application/templates/deployment.yaml#L23) will also change and trigger the deployment to rolling update
 
 ### Limitation
 - Not fully setup a production ready infra. Many component need to be fine turning and secret need to be controll
