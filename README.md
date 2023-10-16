@@ -43,10 +43,10 @@
     ```
 - For demo purpose, we can set AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY as env variable
 
-    ```dotnetcli
+    ```
     export AWS_ACCESS_KEY_ID=xxx
     export AWS_SECRET_ACCESS_KEY=xxx
-    ``````
+    ```
 - apply
     ```
     terraform apply --auto-approve
@@ -54,9 +54,9 @@
 - In reality we have to trigger the apply via github action workflow and Terraform cloud, which is implemented in this [workflow](https://github.com/thienchuong/infra/blob/main/.github/workflows/terraform-deploy.yaml)
 #### Argocd
 - Get kubeconfig
-  ```dotnetcli
+  ```
   aws eks update-kubeconfig --name eks-production --alias eks-production
-  ``````
+  ```
 
 - Access Argocd by run command:
     ```
@@ -81,6 +81,9 @@
 - Prometheus + grafana + kube-state-metric + node-exporter + alertmanager are installed. 
 - A simple rule for monitoring crashloopbackoff event and send alert to telegram. 
 - Some grafana dashboards are included
+#### Config management
+- Config is setup directly in [configmap](https://github.com/thienchuong/argocd-apps/blob/main/charts/project-application/templates/configmap.yaml) helm chart. 
+- Whenever the configmap is changed, a helm checksum will change and auto reload the deployment
 
 ### Limitation
 - Not fully setup a production ready infra. Many component need to be fine turning and secret need to be controll
@@ -88,6 +91,7 @@
 - Deploy github action build cache to reduce the build time
 - Deploy monitoring for github action build time
 - Deploy github action runner controller for auto scaling the runners
+- 
 
 ### What CAN be improve but need to POC first
 - Deploy thanos as a additional to observability stack for better performance and long time storage solution
